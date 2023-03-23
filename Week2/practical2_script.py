@@ -43,8 +43,9 @@ water = gpd.read_file(os.path.abspath('data_files/Water.shp'))
 rivers = gpd.read_file(os.path.abspath('data_files/Rivers.shp'))
 counties = gpd.read_file(os.path.abspath('data_files/Counties.shp'))
 
-
+small_lakes = water.loc[water['Area_km2'] < 10, 'Area_km2'].sum()
 # create a figure of size 10x10 (representing the page size in inches)
+print('Total Area of Lakes smaller than 10km2:', small_lakes)
 myFig = plt.figure(figsize=(10, 10))
 
 myCRS = ccrs.UTM(29)  # create a Universal Transverse Mercator reference system to transform our data.
