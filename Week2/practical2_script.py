@@ -1,3 +1,4 @@
+
 import os
 import geopandas as gpd
 import matplotlib.pyplot as plt
@@ -6,7 +7,7 @@ import cartopy.crs as ccrs
 import matplotlib.patches as mpatches
 import matplotlib.lines as mlines
 
-
+plt.ion() #makes the plotting interactive
 # generate matplotlib handles to create a legend of the features we put in our map.
 def generate_handles(labels, colors, edge='k', alpha=1):
     lc = len(colors)  # get the length of the color list
@@ -63,7 +64,7 @@ ax.set_extent([xmin-5000, xmax+5000, ymin-5000, ymax+5000], crs=myCRS)  # becaus
 # but set_extent takes xmin, xmax, ymin, ymax, we re-order the coordinates here.
 
 # pick colors, add features to the map
-county_colors = ['firebrick', 'seagreen', 'royalblue', 'coral', 'violet', 'cornsilk']
+county_colors = ['goldenrod', 'darkorange', 'black', 'lawngreen', 'r', 'white']
 
 # get a list of unique names for the county boundaries
 county_names = list(counties.CountyName.unique())
@@ -122,8 +123,8 @@ leg = ax.legend(handles, labels, title='Legend', title_fontsize=12,
 gridlines = ax.gridlines(draw_labels=True,  # draw  labels for the grid lines
                          xlocs=[-8, -7.5, -7, -6.5, -6, -5.5],  # add longitude lines at 0.5 deg intervals
                          ylocs=[54, 54.5, 55, 55.5])  # add latitude lines at 0.5 deg intervals
-gridlines.left_labels = False  # turn off the left-side labels
-gridlines.bottom_labels = False  # turn off the bottom labels
+gridlines.left_labels = True  # turn off the left-side labels
+gridlines.bottom_labels = True  # turn off the bottom labels
 
 # add the text labels for the towns
 for ind, row in towns.iterrows():  # towns.iterrows() returns the index and row
