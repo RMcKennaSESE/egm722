@@ -43,6 +43,7 @@ water = gpd.read_file(os.path.abspath('data_files/Water.shp'))
 rivers = gpd.read_file(os.path.abspath('data_files/Rivers.shp'))
 counties = gpd.read_file(os.path.abspath('data_files/Counties.shp'))
 
+
 # create a figure of size 10x10 (representing the page size in inches)
 myFig = plt.figure(figsize=(10, 10))
 
@@ -99,7 +100,12 @@ river_feat = ShapelyFeature(rivers['geometry'],  # first argument is the geometr
 ax.add_feature(river_feat)  # add the collection of features to the map
 
 # ShapelyFeature creates a polygon, so for point data we can just use ax.plot()
-town_handle = ax.plot(towns.geometry.x, towns.geometry.y, 's', color='0.5', ms=6, transform=myCRS)
+just_towns = towns.loc[towns['STATUS'] == 'Town']
+just_cities = towns.loc[towns['STATUS'] == 'City']
+town_handle = ax.plot(just_towns.geometry.x, just_towns.geometry.y, 's', color='0.5', ms=6, transform=myCRS)
+city_handle = ax.plot(just_cities.geometry.x, just_cities.geometry.y, 'o', color= 'r', ms=10, transform=myCRS) #displays cities with different symbology
+
+
 
 # generate a list of handles for the county datasets
 county_handles = generate_handles(counties.CountyName.unique(), county_colors, alpha=0.25)
@@ -114,8 +120,8 @@ river_handle = [mlines.Line2D([], [], color='royalblue')]  # have to make this a
 nice_names = [name.title() for name in county_names]
 
 # ax.legend() takes a list of handles and a list of labels corresponding to the objects you want to add to the legend
-handles = county_handles + water_handle + river_handle + town_handle
-labels = nice_names + ['Lakes', 'Rivers', 'Towns']
+handles = county_handles + water_handle + river_handle + town_handle + city_handle
+labels = nice_names + ['Lakes', 'Rivers', 'Towns', 'Cities']
 
 leg = ax.legend(handles, labels, title='Legend', title_fontsize=12,
                 fontsize=10, loc='upper left', frameon=True, framealpha=1)
@@ -136,3 +142,4 @@ scale_bar(ax)
 
 # save the figure as map.png, cropped to the axis (bbox_inches='tight'), and a dpi of 300
 myFig.savefig('map.png', bbox_inches='tight', dpi=300)
+myFig
