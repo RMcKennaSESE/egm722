@@ -8,11 +8,14 @@ HEAD
   - geopandas
   - cartopy
 week3
-
   - python
   - geopandas
   - cartopy>=0.21
 week4
+  - python
+  - geopandas
+  - cartopy>=0.21
+week5
   - notebook
   - rasterio
   - pyepsg
