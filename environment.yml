@@ -15,9 +15,9 @@ week4
   - python
   - geopandas
   - cartopy>=0.21
-  - sentinelsat
 week5
   - notebook
   - rasterio
   - pyepsg
   - folium
+  - rasterstats
