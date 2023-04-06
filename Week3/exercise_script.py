@@ -37,6 +37,17 @@ print('Population in wards item is: ', wards_total)
 print('Population from joined table is: ', join_total)
 print(wards_total == join_total)
 
+County_populations = dict()
+
+for county in counties['CountyName'].unique():  #loop to display county names and populations
+    County_pop = join.loc[join['CountyName'] == county, 'Population'].sum()
+    County_populations.update({county: County_pop})
+
+print(County_populations)
+print
+
+
+
 
 # ---------------------------------------------------------------------------------------------------------------------
 # below here, you may need to modify the script somewhat to create your map.
